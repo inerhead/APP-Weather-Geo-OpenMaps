@@ -2,8 +2,29 @@ const axios = require('axios').default;
 
 class Busquedas {
 
-    constructor() {
 
+    constructor() {
+        this.listadoHistorico = [];
+    }
+
+    saveConsulta(lugar) {
+
+        this.listadoHistorico.unshift(lugar);
+
+    }
+
+    getTopFive() {
+        let items = [];
+        let idx = 0;
+        (this.listadoHistorico.length > 5) ? idx = 5: idx = this.listadoHistorico.length;
+
+
+        for (let index = 0; index < idx; index++) {
+            items.push(this.listadoHistorico[index]);
+
+        }
+
+        return items;
     }
 
     get paramMapBox() {
@@ -43,6 +64,11 @@ class Busquedas {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    lugaresFromJSON(json = []) {
+
+        this.listadoHistorico = [...this.listadoHistorico, ...json];
     }
 
     async climaLugar(lat, lon) {

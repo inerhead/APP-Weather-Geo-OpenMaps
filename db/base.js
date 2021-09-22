@@ -8,7 +8,7 @@ const guardar = (data) => {
 
 const leerJSON = () => {
 
-    if (fs.existsSync(archivo)) {
+    if (!fs.existsSync(archivo)) {
         return null;
     }
 
